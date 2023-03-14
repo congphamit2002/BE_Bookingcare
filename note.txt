@@ -1,0 +1,20 @@
+npm init
+npm install --save body-parser dotenv ejs express
+npm install --save-dev @babel/core @babel/preset-env @babel/node nodemon
+npm install --save-exact babel/core @babel/preset-env @babel/node
+
+babelcompiler : dùng để biên dịch code js không quan tâm đến version
+nodemon : dùng để restart server mỗi khi save project   
+
+"scripts": {
+    "start": "nodemon --exec babel-node src/server.js"
+  }
+
+sequelize.org
+// install sequelize to create database
+npm install --save-dev sequelize-cli
+npm install --save sequelize
+npm install --save mysql2
+
+run node_modules/.bin/sequelize init in root folder to create sequelize
+
