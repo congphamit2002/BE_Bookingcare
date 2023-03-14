@@ -18,3 +18,4 @@ npm install --save mysql2
 
 run node_modules/.bin/sequelize init in root folder to create sequelize
 
+npx sequelize-cli db:migrate
