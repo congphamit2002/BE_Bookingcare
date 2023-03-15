@@ -15,6 +15,7 @@ sequelize.org
 npm install --save-dev sequelize-cli
 npm install --save sequelize
 npm install --save mysql2
+npm install --save bcrypt
 
 run node_modules/.bin/sequelize init in root folder to create sequelize
 
