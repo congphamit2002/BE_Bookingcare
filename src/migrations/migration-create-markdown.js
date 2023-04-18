@@ -2,24 +2,30 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
-        await queryInterface.createTable('specialty', {
+        await queryInterface.createTable('markdowns', {
             id: {
                 allowNull: false,
                 autoIncrement: true,
                 primaryKey: true,
                 type: Sequelize.INTEGER
             },
-            descriptionHTML: {
+            doctorId: {
+                type: Sequelize.INTEGER
+            },
+            clinicId: {
+                type: Sequelize.INTEGER
+            },
+            specialtyId: {
+                type: Sequelize.INTEGER
+            },
+            contentHTML: {
+                type: Sequelize.TEXT('long')
+            },
+            contentMarkdown: {
+                type: Sequelize.TEXT('long')
+            },
+            description: {
                 type: Sequelize.TEXT
-            },
-            descriptionMarkdown: {
-                type: Sequelize.TEXT
-            },
-            image: {
-                type: Sequelize.BLOB('long')
-            },
-            name: {
-                type: Sequelize.STRING
             },
             createdAt: {
                 allowNull: false,
@@ -32,6 +38,6 @@ module.exports = {
         });
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable('specialty');
+        await queryInterface.dropTable('markdowns');
     }
 };
