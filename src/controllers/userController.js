@@ -56,10 +56,16 @@ let handleDeleteUser = async (req, res) => {
     res.status(200).json(message);
 }
 
+let getAllCode = async (req, res) => {
+    let message = await userService.handleGetAllCode(req.query.type);
+    res.status(200).json(message);
+}
+
 export default {
     handleLogin: handleLogin,
     handleGetAllUser: handleGetAllUser,
     handleCreateNewUser: handleCreateNewUser,
     handleUpdateUser: handleUpdateUser,
-    handleDeleteUser: handleDeleteUser
+    handleDeleteUser: handleDeleteUser,
+    getAllCode: getAllCode
 }

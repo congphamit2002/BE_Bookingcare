@@ -23,7 +23,7 @@ let checkLogin = (email, password) => {
             let isExist = await checkEmailExist(email);
             if (isExist) {
                 let user = await db.users.findOne({
-                    attributes: ['email', 'roleId', 'password'],
+                    attributes: ['email', 'roleId', 'password', 'firstName', 'lastName'],
                     where: {
                         email: email
                     },
@@ -113,9 +113,11 @@ let handleCreateNewUser = (data) => {
                     firstName: data.firstName,
                     lastName: data.lastName,
                     address: data.address,
-                    gender: data.gender === 1 ? true : false,
+                    gender: data.gender,
                     roleId: data.roleId,
-                    phonenumber: data.phone
+                    phonenumber: data.phonenumber,
+                    positionId: data.positionId,
+                    image: data.avatar
                 })
                 resolve({
                     errCode: 0,
@@ -149,6 +151,13 @@ let handleUpdateUser = (data) => {
                 user.firstName = data.firstName;
                 user.lastName = data.lastName;
                 user.address = data.address;
+                user.gender = data.gender;
+                user.roleId = data.roleId;
+                user.positionId = data.positionId;
+                if (user.image) {
+                    user.image = data.avatar;
+                }
+                user.phonenumber = data.phonenumber
                 await user.save();
                 resolve({
                     errCode: 0,
@@ -199,10 +208,47 @@ let handleDeleteUser = (userId) => {
     })
 }
 
+let handleGetAllCode = (type) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            if (!type) {
+                resolve({
+                    errCode: 1,
+                    message: 'Missing parameter, please enter enough'
+                })
+            } else {
+                let data = await db.allcodes.findAll({
+                    where: { type: type }
+                })
+                console.log("DATA QUERY ", data)
+                if (data) {
+                    resolve({
+                        errCode: 0,
+                        message: "OKE",
+                        data: data
+                    })
+                } else {
+                    resolve({
+                        errCode: 2,
+                        message: 'Type is not correct, please try again'
+                    })
+                }
+            }
+        } catch (error) {
+            console.log('Error: ', error);
+            reject({
+                errCode: -1,
+                message: "Error from server"
+            })
+        }
+    })
+}
+
 export default {
     checkLogin: checkLogin,
     handleGetAllUser: handleGetAllUser,
     handleCreateNewUser: handleCreateNewUser,
     handleUpdateUser: handleUpdateUser,
-    handleDeleteUser: handleDeleteUser
+    handleDeleteUser: handleDeleteUser,
+    handleGetAllCode: handleGetAllCode
 }
